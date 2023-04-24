@@ -8,5 +8,5 @@ app = FastAPI()
 #debugpy.wait_for_client()
 
 @app.get("/")
-def read_root():
+def check():
     return {"Ok! All set guys!"}
