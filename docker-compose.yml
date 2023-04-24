@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  8queens-puzzle:
+    build: . # build from Dockerfile
+    image: ga-8queens-python
+    container_name: 8queens-puzzle
+    restart: always
+    volumes:
+      - ./src:/app/src # mount current directory to /app/src
+    ports:
+      - "80:80" # server port
+      - "5678:5678" # debugpy port
+    networks:
+        - GeneticAlgorithm
+
+networks:
+    GeneticAlgorithm:
+        driver: bridge
