@@ -1,4 +1,4 @@
-FROM python:3.11-slim AS ga-8queens-python
+FROM python:3.10-slim AS ga-8queens-python
 
 # set the working directory
 WORKDIR /app
