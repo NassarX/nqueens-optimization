@@ -7,13 +7,13 @@ More information about the puzzle can be found on [Wikipedia](https://en.wikiped
 Or you can watch [this video](https://youtu.be/jPcBU0Z2Hj8) to get a better understanding of the problem.
 
 ## Table of Contents
-- [Background](#background)
+- [Computational Complexity Analysis](#computational-complexity-analysis)
   - [Problem Statement](#problem-statement)
   - [Solutions](#solutions)
   - [Challenge](#challenge)
   - [Possible Optimization](#possible-optimization)
 - [Project Overview](#project-overview)
-  - [Genetic Algorithm](#genetic-algorithm)
+  - [Genetic Algorithm](#genetic-algorithms)
 
 - [Up And Running](#up-and-running)
   - [Docker](#docker) 
@@ -31,7 +31,9 @@ Or you can watch [this video](https://youtu.be/jPcBU0Z2Hj8) to get a better unde
   - [Run the Algorithm](#run-the-algorithm)
 
 
-## Background
+## Computational Complexity Analysis
+
+So before we dive into the Genetic Algorithms, let's first understand and represented the problem mathematically to get a better understanding of problem computational complexity.
 
 ### Problem Statement
 
@@ -39,9 +41,11 @@ The `eight queens` puzzle is a classic puzzle in chess, going back to 1848. The 
 
 *Ps. The queen can move as far as she likes vertically, horizontally or diagonally. which mean we can't place two queens in the same row, column, or diagonal.* S*o on a normal chessboard (8 x 8) we can't put nine or more queens. Eight is the maximum.*
 
-A *single queen threatening*
+*A single queen threatening the squares on the board (marked in red)*
 ![A *single queen threatening*](assets/queen_threatens.svg)
-Our task is to find all such configurations of queens on the *(8 x 8)* board. There are 92 possible configurations.
+
+
+Our task here is to find all such configurations of queens on the *(8 x 8)* board. There are 92 possible configurations.
 
 ### Solutions
 
@@ -54,7 +58,6 @@ All fundamental solutions are presented below:
 
 [Brute-force computational techniques](https://en.wikipedia.org/wiki/Brute-force_search)  could be the first possible mechanism we think of where blindly trying the eight queens in every possible location. This is a really dumb idea and computationally so expensive, but would calculate all possible combinations Using [Combinations Calculator nCr](https://www.calculatorsoup.com/calculators/discretemathematics/combinations.php) :
 
-
 $$ C(n, r) = ({n \over r}) = {n! \over (r!(n-r)!)} $$
 
 $$ C(64, 8) = {64! \over (8!(64 - 8)!)} = 4,426,165,368 $$
@@ -63,14 +66,16 @@ Imagine having to test 4,426,165,368 combinations. If we can process 50,000 comb
 
 ### Possible Optimization
 
-- By applying a simple rule that to put each queen on a separate row, would reduce the number of possibilities to 16,777,216 possible combinations.
+- By applying a simple rule that to put each queen on a separate row, and this massively reduces the number of possibilities.
 
 $$ P(n,n) = n^n $$
 
 $$ P(8,8) = 8^8 = 16,777,216 $$
 
-- Generating [permutations](https://en.wikipedia.org/wiki/Permutation) further reduces the possibilities to just ($8! = 40,320$), which can then be checked for diagonal attacks.
-
+- Similarly, there can be only one queen per column, and this reduces the possibilities even further. The problem can be trimmed down to an analogous problem of generating [permutations](https://en.wikipedia.org/wiki/Permutation) of the 8 queens, which can then be checked for diagonal attacks.
+The number of possible permutations would be 
+$$ n! = 8! = 40,320 $$
+This is a much more manageable number. However, checking each permutation is still computationally expensive.
 
 ## Project Overview
 
