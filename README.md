@@ -73,8 +73,9 @@ $$ P(n,n) = n^n $$
 $$ P(8,8) = 8^8 = 16,777,216 $$
 
 - Similarly, there can be only one queen per column, and this reduces the possibilities even further. The problem can be trimmed down to an analogous problem of generating [permutations](https://en.wikipedia.org/wiki/Permutation) of the 8 queens, which can then be checked for diagonal attacks.
-The number of possible permutations would be 
+
 $$ n! = 8! = 40,320 $$
+
 This is a much more manageable number. However, checking each permutation is still computationally expensive.
 
 ## Project Overview
