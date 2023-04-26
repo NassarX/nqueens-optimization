@@ -63,13 +63,13 @@ Imagine having to test 4,426,165,368 combinations. If we can process 50,000 comb
 
 ### Possible Optimization
 
-1. By applying a simple rule that to put each queen on a separate row, would reduce the number of possibilities to 16,777,216 possible combinations.
+- By applying a simple rule that to put each queen on a separate row, would reduce the number of possibilities to 16,777,216 possible combinations.
 
-$$
-P(n,n) = n^n\\P(8,8) = 8^8 = 16,777,216
-$$
+$$ P(n,n) = n^n $$
 
-1. Generating [permutations](https://en.wikipedia.org/wiki/Permutation) further reduces the possibilities to just ($8! = 40,320$), which can then be checked for diagonal attacks.
+$$ P(8,8) = 8^8 = 16,777,216 $$
+
+- Generating [permutations](https://en.wikipedia.org/wiki/Permutation) further reduces the possibilities to just ($8! = 40,320$), which can then be checked for diagonal attacks.
 
 
 ## Project Overview
