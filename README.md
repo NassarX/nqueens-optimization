@@ -54,9 +54,9 @@ There are 92 solutions to the *8 x 8* problem. Many of these are reflections a
 All fundamental solutions are presented below:
 ![All fundamental solutions (12 distinct solutions)](assets/solutions.png)
 
-### Challenge
+### **Brute-Force** Challenges
 
-[Brute-force computational techniques](https://en.wikipedia.org/wiki/Brute-force_search)  could be the first possible mechanism we think of where blindly trying the eight queens in every possible location. This is a really dumb idea and computationally so expensive, but would calculate all possible combinations Using [Combinations Calculator nCr](https://www.calculatorsoup.com/calculators/discretemathematics/combinations.php) :
+[Brute-force computational techniques](https://en.wikipedia.org/wiki/Brute-force_search) could be the first possible mechanism we think of where blindly trying the eight queens in every possible location. This is a really dumb idea and computationally so expensive, but would calculate all possible combinations Using [Combinations Calculator nCr](https://www.calculatorsoup.com/calculators/discretemathematics/combinations.php) :
 
 $$ C(n, r) = ({n \over r}) = {n! \over (r!(n-r)!)} $$
 
@@ -78,9 +78,31 @@ $$ n! = 8! = 40,320 $$
 
 This is a much more manageable number. However, checking each permutation is still computationally expensive.
 
-## Project Overview
+## Optimization Techniques
 
-### Genetic Algorithms
+### Backtracking Technique (Baseline) 
+
+Backtracking is a systematic algorithmic technique for finding solutions to problems that involve finding
+an arrangement of elements satisfying certain constraints. It explores the search space by incrementally
+building candidates and backtracking when a dead-end or invalid solution is encountered.
+
+Unlike heuristic methods, backtracking does not use heuristics or approximate techniques to guide the search process. Instead, it exhaustively explores the entire search space by considering all possible combinations, making it more computationally expensive for large problem instances.
+
+Here, we are using backtracking as a baseline algorithm for solving the N-Queens problem before applying
+other techniques like hill climbing and genetic algorithms.  By starting with backtracking as a baseline, we can compare and evaluate the effectiveness and efficiency
+of other techniques like hill climbing and genetic algorithms for solving the N-Queens problem.
+
+### Heuristic Methods
+Heuristic algorithms use practical and approximate techniques to guide the search for optimal solutions. They do not guarantee finding the global optimum but aim to find good-quality solutions efficiently.
+
+#### Hill Climbing Algorithm
+
+#### Simulated Annealing Algorithm
+
+### Metaheuristic Methods
+Metaheuristic algorithms are high-level strategies that guide the search process by combining and adapting different heuristics. They are designed to handle complex optimization problems with large search spaces and provide robust and efficient solutions.
+
+#### Genetic Algorithms
 Genetic algorithms are a powerful technique for optimization problems that mimic natural selection. 
 
 In this project, we're going to use genetic algorithms to solve the classic 8 Queen Puzzle. The goal is to find a placement of 8 queens on a chessboard such that no two queens are attacking each other. We start with an initial state where some queens may be attacking each other, and use the genetic algorithm to evolve towards the optimal solution. The project includes a Python implementation of the genetic algorithm, as well as visualization tools to help understand the evolution process. Our results show that the genetic algorithm can efficiently solve the 8 Queen Puzzle and find solutions that are optimal or close to optimal.
@@ -98,32 +120,11 @@ If you're not familiar with Docker or don't have it locally, please reach out to
 [Docker for Linux](https://docs.docker.com/desktop/get-started/)  
 [Docker for Windows](https://docs.docker.com/desktop/install/windows-install/)
 
-The Project is containerized within one container currently on `Python-3.11-slim` image. 
-You don't need to build anything locally, the related images will be automatically pulled from the remote registry 
-as soon as you run the application for the first time.
-
-Dependencies:
-* `fastapi` - for building APIs with Python.
-* `requests` - for making HTTP requests and handling responses.
-* `uvicorn` - for running Python APIs.
-* `debugpy` - for debugging of Python code running in a container.
-
 ### Run application
 
 Once you have Docker up and running please perform the following command to start the application:
 
     docker-compose up
-
-Alternatively you can start the application containers in detached mode to suppress containers messages:
-
-    docker-compose up --detach
-
-Please see the `Logs` for more details about log messages:
-
-    docker-compose logs -f
-
-If you run the application for the first time, this will pull images from the remote repository, 
-create `ga-8queens-puzzle` container run the `pip install` command.
 
 The container will be listening on port `80` on your `localhost`, you can access the application main page using the 
 following URL: [http://localhost](http://localhost:80).
@@ -132,13 +133,13 @@ following URL: [http://localhost](http://localhost:80).
 
 As soon as you are done with the test assignment you can stop the application:
 
-    docker-compose down
+    docker-compose down --rmi all
 
 This will stop the application and remove containers & network.
 
 ## SetUp
 
-### Project GUI
+### Interface
 @TODO
 
 ## Modules

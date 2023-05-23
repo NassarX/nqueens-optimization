@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import time
-from core.backtracking import NQueensBacktracking
+from nqueens.backtracking import NQueensBacktracking
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
