@@ -2,18 +2,19 @@ version: '3'
 
 services:
   8queens-puzzle:
-    build: . # build from Dockerfile
-    image: ga-8queens-python
-    container_name: 8queens-puzzle
+    container_name: NQueens-Puzzle
+    build:
+      context: ./docker/python
+    image: "nassarx/python-fastapi:1.0"
     restart: always
     volumes:
-      - ./src:/app/src # mount current directory to /app/src
+      - ./app:/app # mount app directory to /app
     ports:
       - "80:80" # server port
       - "5678:5678" # debugpy port
     networks:
-        - GeneticAlgorithm
+        - NQueens-Puzzle
 
 networks:
-    GeneticAlgorithm:
+    NQueens-Puzzle:
         driver: bridge

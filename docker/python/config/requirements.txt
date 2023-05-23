@@ -1,6 +1,7 @@
 fastapi
 requests
 uvicorn
-debugpy
 pytest
 httpx
+jinja2
+python-multipart
