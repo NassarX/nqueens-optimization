@@ -86,11 +86,36 @@ building candidates and backtracking when a dead-end or invalid solution is enco
 
 Unlike heuristic methods, backtracking does not use heuristics or approximate techniques to guide the search process. Instead, it exhaustively explores the entire search space by considering all possible combinations, making it more computationally expensive for large problem instances.
 
+**You can find the implementation of the backtracking algorithm here [backtracking.py](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
+
+Usage:
+```shell
+python backtracking.py --n-queen 8
+```
+
+```
+╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+```
+
 Here, we are using backtracking as a baseline algorithm for solving the N-Queens problem before applying
 other techniques like hill climbing and genetic algorithms. By starting with backtracking as a baseline, we can compare and evaluate the effectiveness and efficiency
 of other techniques like hill climbing and genetic algorithms for solving the N-Queens problem.
-
-**You can find the implementation of the backtracking algorithm in the [backtracking.py](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
 
 ### Heuristic Methods
 Heuristic algorithms use practical and approximate techniques to guide the search for optimal solutions. They do not guarantee finding the global optimum but aim to find good-quality solutions efficiently.
