@@ -30,6 +30,8 @@ Let's proceed with the implementation.
 import argparse
 from datetime import datetime
 
+from utils import N_QUEEN_CONST, _create_chessboard
+
 
 def get_candidates(state, size):
     """
@@ -113,7 +115,7 @@ def main():
     USAGE: python backtracking.py -n 8
     """
     parser = argparse.ArgumentParser(description='NQueens Backtracking')
-    parser.add_argument('-n', '--n-queen', type=int, default=8,
+    parser.add_argument('-n', '--n-queen', type=int, default=N_QUEEN_CONST,
                         help='Number of queens')
     args = parser.parse_args()
 
@@ -127,9 +129,17 @@ def main():
         print("\nInterrupted", end="\n")
     finally:
         end_time = datetime.now()
-        print("Number of solutions: {}".format(len(results)))
-        duration = 'Duration: {}'.format(end_time - start_time)
-        print(duration)
+        representation = ""
+        representation += "N-Queens Backtracking Algorithm\n"
+        representation += "==========================\n"
+        representation += "Dimension: {}\n".format(args.n_queen)
+        representation += "Number of solutions: {}\n".format(len(results))
+        representation += "Execution time: {}\n".format(end_time - start_time)
+        representation += "\n"
+        representation += _create_chessboard(args.n_queen, results[0])
+        print(representation)
+
+        print(representation)
 
 
 if __name__ == '__main__':
