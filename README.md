@@ -93,7 +93,15 @@ Usage:
 python backtracking.py --n-queen 8
 ```
 
+Output:
+
 ```
+N-Queens Backtracking Algorithm
+==========================
+Dimension: 8
+Number of solutions: 92
+Execution time: 0:00:00.002758
+
 ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
 ║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
