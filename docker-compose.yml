@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  8queens-puzzle:
+  nqueens-optimization:
     container_name: NQueens-Puzzle
     build:
       context: ./docker/python
