@@ -27,95 +27,110 @@ of other techniques like hill climbing and genetic algorithms for solving the N-
 
 Let's proceed with the implementation.
 """
-import sys
+import argparse
+from datetime import datetime
+
+
+def get_candidates(state, size):
+    """
+    Get the next set of candidates to construct the next state. A candidate is a column index to place a queen.
+
+    :param state: list - a list of column indices where queens are placed
+    :param size: int - the size of the board
+    :return: set
+    """
+    # if the state is empty, return all columns as candidates
+    if not state:
+        return range(size)
+
+    # find the next position in the state to populate
+    position = len(state)
+    candidates = set(range(size))
+
+    # prune down candidates that place the queen into attacks
+    for row, col in enumerate(state):
+        # discard the column index if it's occupied by a queen
+        candidates.discard(col)
+        dist = position - row
+
+        # discard diagonals
+        candidates.discard(col + dist)
+        candidates.discard(col - dist)
+    return candidates
+
+
+def is_valid_state(state, size) -> bool:
+    """
+    Check if the state is a valid solution. A valid solution is a state where all queens are placed on the board.
+    :param state: list - a list of column indices where queens are placed
+    :param size: int - the size of the board
+    :return: boolean
+    """
+    # check if it is a valid solution
+    return len(state) == size
 
 
 class NQueensBacktracking:
 
-    def solveNQueens(self, n: int) -> list[list[str]]:
+    def solveNQueens(self, size: int) -> list[list[str]]:
         """
         Entry point for the backtracking algorithm, which returns a list of valid solutions.
 
-        :type n: int
-        :param n:
-        :return:
+        :param size: int - the size of the board
+        :return: list[list[str]]
         """
         solutions = []
         state = []
-        self.search(state, solutions, n)
+        self.search(state, solutions, size)
         return solutions
 
-    def is_valid_state(self, state, n):
-        """
-        Check if the state is a valid solution. A valid solution is a state where all queens are placed on the board.
-        :param state: boolean
-        :param n:
-        :return:
-        """
-        # check if it is a valid solution
-        return len(state) == n
-
-    def get_candidates(self, state, n):
-        """
-        Get the next set of candidates to construct the next state. A candidate is a column index to place a queen.
-
-        :param state: boolean
-        :param n:
-        :return:
-        """
-        # if the state is empty, return all columns as candidates
-        if not state:
-            return range(n)
-
-        # find the next position in the state to populate
-        position = len(state)
-        candidates = set(range(n))
-
-        # prune down candidates that place the queen into attacks
-        for row, col in enumerate(state):
-            # discard the column index if it's occupied by a queen
-            candidates.discard(col)
-            dist = position - row
-
-            # discard diagonals
-            candidates.discard(col + dist)
-            candidates.discard(col - dist)
-        return candidates
-
-    def search(self, state, solutions, n):
+    def search(self, state, solutions, size):
         """
         Recursively search for valid solutions.
-        :param state:
-        :param solutions:
-        :param n:
-        :return:
+        :param state: list - a list of column indices where queens are placed
+        :param solutions: list[list[str]]
+        :param size: int - the size of the board
+        :return: None
         """
 
         # base case
-        if self.is_valid_state(state, n):
-            state_string = self.state_to_string(state, n)
-            solutions.append(state_string)
+        if is_valid_state(state, size):
+            solutions.append(state[:])
             return
 
         # get candidates
-        for candidate in self.get_candidates(state, n):
+        for candidate in get_candidates(state, size):
             # recurse
             state.append(candidate)
-            self.search(state, solutions, n)
+            self.search(state, solutions, size)
             state.pop()
 
-    def state_to_string(self, state, n):
-        # ex. [1, 3, 0, 2]
-        # output: [".Q..","...Q","Q...","..Q."]
-        ret = []
-        for i in state:
-            string = '.' * i + 'Q' + '.' * (n - i - 1)
-            ret.append(string)
-        return ret
+
+def main():
+    """
+    Entry point for the backtracking algorithm, which returns a list of valid solutions.
+
+    USAGE: python backtracking.py -n 8
+    """
+    parser = argparse.ArgumentParser(description='NQueens Backtracking')
+    parser.add_argument('-n', '--n-queen', type=int, default=8,
+                        help='Number of queens')
+    args = parser.parse_args()
+
+    results = []
+    start_time = datetime.now()
+    try:
+        start_time = datetime.now()
+        backtracking = NQueensBacktracking()
+        results = backtracking.solveNQueens(args.n_queen)
+    except KeyboardInterrupt:
+        print("\nInterrupted", end="\n")
+    finally:
+        end_time = datetime.now()
+        print("Number of solutions: {}".format(len(results)))
+        duration = 'Duration: {}'.format(end_time - start_time)
+        print(duration)
+
 
 if __name__ == '__main__':
-    n = int(sys.argv[1])
-    solution = NQueensBacktracking()
-    solutions = solution.solveNQueens(n)
-    print(solutions)
-    print("Number of solutions: {}".format(len(solutions)))
+    main()
