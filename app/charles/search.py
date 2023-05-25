@@ -9,31 +9,32 @@ def hill_climb(search_space):
         search_space (Population): A Population of solutions
 
     Returns:
-        Individual: Local optima Individual found in the search.
+        Individual: Local optimal Individual found in the search.
     """
+
     # initialize a feasible solution from search space
     start = choice(search_space)
+
     # current solution is i-start
     position = start
+    print(f"Initial position: {position.representation}, fitness: {position.fitness}")
 
-    print(f"Initial position: {start}")
-    # repeat
+    # Repeat until termination condition is met
     while True:
-        # generate solution from neighbours
-        n = position.get_neighbours()
+        # Generate neighbors
+        neighbors = position.get_neighbours()
 
-        # fitness of the neighbours
-        n_fit = [i.fitness for i in n]
-        best_n = n[n_fit.index(max(n_fit))]
+        # Find the best neighbor with the highest fitness
+        best_neighbor = max(neighbors, key=lambda x: x.fitness)
 
-        # if neighbour is better than current solution
-        if best_n.fitness > position.fitness:
-            print(f"Found better solution: {best_n.representation}")
-            position = best_n # neighbour is the new solution
-        elif best_n.fitness == position.fitness:
-            position = best_n
+        # If the best neighbor is better than the current position, update the position
+        if best_neighbor.fitness > position.fitness:
+            print(f"Found better solution: {best_neighbor.representation}, Fitness: {best_neighbor.fitness}")
+            position = best_neighbor
+        elif best_neighbor.fitness == position.fitness:
+            position = best_neighbor
         else:
-            print(f"Hill Climbing returned: {position.representation}")
+            print(f"Hill Climbing returned: {position.representation}, Fitness: {position.fitness}")
             return position
 
 

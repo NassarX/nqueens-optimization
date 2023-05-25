@@ -81,7 +81,7 @@ def tournament_selection(population, size=4) -> Individual:
         raise Exception("No optimization specified (min or max).")
 
 
-def rank_based_sel(population) -> Individual:
+def rank_selection(population) -> Individual:
     """Rank-based selection implementation.
 
     Rank-Based Selection assigns selection probabilities based on the rank of individuals in the population,

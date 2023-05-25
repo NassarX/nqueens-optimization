@@ -136,10 +136,3 @@ def arithmetic_xo(p1, p2):
     offspring2 = Individual(representation=offspring2)
 
     return offspring1, offspring2
-
-
-if __name__ == '__main__':
-    # p1, p2 = [9, 8, 4, 5, 6, 7, 1, 3, 2, 10], [8, 7, 1, 2, 3, 10, 9, 5, 4, 6]
-    p1, p2 = [0.1, 0.15, 0.3], [0.3, 0.1, 0.2]
-    o1, o2 = arithmetic_xo(p1, p2)
-    print(o1, o2)
