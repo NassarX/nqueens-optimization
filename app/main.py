@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 import time
-from nqueens.backtracking import NQueensBacktracking
-from nqueens.utils import state_to_string
+from app.nqueens.backtracking import NQueensBacktracking
+from app.nqueens.utils import state_to_string
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")

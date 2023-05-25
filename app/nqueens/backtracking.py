@@ -29,7 +29,6 @@ Let's proceed with the implementation.
 """
 import argparse
 from datetime import datetime
-
 from utils import N_QUEEN_CONST, _create_chessboard
 
 
