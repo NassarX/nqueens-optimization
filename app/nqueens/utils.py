@@ -1,12 +1,74 @@
 from colorama import Fore, Back, Style
 
-MUTATION_PROBABILITY_CONST = 0.1
-CROSSOVER_PROBABILITY_CONST = 0.1
-INITIAL_POPULATION_CONST = 100
-GENERATIONS_CONST = 100
-N_QUEEN_CONST = 8
-CELL = '   '
-QUEEN = '♛'
+from app.charles import Individual
+
+
+def calculate_fitness_score(self):
+    """Calculate the fitness score of the individual.
+
+    The fitness score represents the number of non-attacking queen pairs on the board.
+    A higher fitness score indicates a better configuration with fewer queen collisions.
+
+    In this fitness function, we iterate through each pair of queens on the board and check if they are attacking
+    each other. We count the number of collisions and subtract it from the maximum possible pairs to calculate the
+    fitness score. A higher fitness score indicates a better configuration with fewer queen collisions.
+
+    Steps:
+        1. Iterate through each pair of queens on the board.
+        2. Checks for collisions between queens. It compares
+            the positions of queens in terms of row and column to determine if they are attacking each other.
+            If queens are on the same column (board[i] == board[j])
+            or on diagonals (abs(board[i] - board[j]) == abs(i - j)),
+            it increments num_collisions by 1.
+        3. After counting all the collisions, the function calculates the maximum possible number of
+            non-attacking queen pairs using the formula num_queens * (num_queens - 1) // 2.
+            This represents the total number of unique pairs of queens that can be formed on the board.
+        4. Finally, the function calculates the fitness score by subtracting the number of collisions (num_collisions)
+            from the maximum possible pairs (max_pairs).
+        The resulting value represents the number of non-attacking queen pairs.
+
+    Example: >>> board = [1, 3, 0, 2] In this example, there are no collisions between any pair of queens. So,
+    the fitness score would be the maximum possible number of non-attacking queen pairs, which is (4 * (4 - 1)) / 2 = 6.
+
+    Returns:
+        int: Fitness score representing the number of non-attacking queen pairs.
+    """
+    board = self.representation
+    num_queens = len(board)
+    num_collisions = 0
+
+    for i in range(num_queens):
+        for j in range(i + 1, num_queens):
+            # Check if queens on the same column are attacking each other
+            if board[i] == board[j]:
+                num_collisions += 1
+            # Check if queens on diagonals are attacking each other
+            elif abs(board[i] - board[j]) == abs(i - j):
+                num_collisions += 1
+
+    # Calculate the maximum possible number of non-attacking queen pairs
+    max_pairs = num_queens * (num_queens - 1) // 2
+
+    # Calculate the fitness score by subtracting the number of collisions from the maximum possible pairs
+    fitness_score = max_pairs - num_collisions
+
+    return fitness_score
+
+
+def get_neighbours(self):
+    """Return a list of neighbours for the N-Queens problem."""
+    neighbours = []
+
+    dimension = len(self.representation)
+    for row in range(dimension):
+        for col in range(dimension):
+            if col != self.representation[row]:
+                neighbour_representation = self.representation[:]
+                neighbour_representation[row] = col
+                neighbour = Individual(representation=neighbour_representation)
+                neighbours.append(neighbour)
+
+    return neighbours
 
 
 def state_to_string(state, n):
@@ -19,6 +81,15 @@ def state_to_string(state, n):
         string = '.' * i + 'Q' + '.' * (n - i - 1)
         ret.append(string)
     return ret
+
+
+MUTATION_PROBABILITY_CONST = 0.1
+CROSSOVER_PROBABILITY_CONST = 0.1
+INITIAL_POPULATION_CONST = 100
+GENERATIONS_CONST = 100
+N_QUEEN_CONST = 8
+CELL = '   '
+QUEEN = '♛'
 
 
 class CONST:
