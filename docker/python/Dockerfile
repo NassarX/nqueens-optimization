@@ -5,6 +5,8 @@ FROM ${PYTHON_BASE_IMAGE}:${PYTHON_BASE_VERSION} AS python
 # set the working directory
 WORKDIR /app
 
+# Set Python Path
+ENV PYTHONPATH="$PYTHONPATH:/"
 
 # Install missing dependencies.
 RUN apt-get update &&  \
