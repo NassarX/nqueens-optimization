@@ -136,7 +136,6 @@ def main():
         representation += "Execution time: {}\n".format(end_time - start_time)
         representation += "\n"
         representation += _create_chessboard(args.n_queen, results[0])
-        print(representation)
 
         print(representation)
 
