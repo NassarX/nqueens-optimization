@@ -1,9 +1,6 @@
 import argparse
 from datetime import datetime
-from app.charles import Individual, Population
-from app.charles import tournament_selection
-from app.charles import single_point_co
-from app.charles import random_position_mutation
+from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, swap_mutation
 from utils import calculate_fitness_score, _create_chessboard
 from utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOVER_PROBABILITY_CONST, INITIAL_POPULATION_CONST, \
     GENERATIONS_CONST
@@ -46,8 +43,8 @@ class NQueensGeneticAlgorithm:
             xo_prob=xo_prob,
             mut_prob=mutation_prob,
             select=tournament_selection,
-            mutate=random_position_mutation,
-            crossover=single_point_co,
+            mutate=swap_mutation,
+            crossover=pmx,
             elitism=True
         )
 

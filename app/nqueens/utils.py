@@ -37,13 +37,13 @@ def calculate_fitness_score(self):
     num_queens = len(board)
     num_collisions = 0
 
-    for i in range(num_queens):
-        for j in range(i + 1, num_queens):
+    for row in range(num_queens):
+        for col in range(row + 1, num_queens):
             # Check if queens on the same column are attacking each other
-            if board[i] == board[j]:
+            if board[row] == board[col]:
                 num_collisions += 1
             # Check if queens on diagonals are attacking each other
-            elif abs(board[i] - board[j]) == abs(i - j):
+            elif abs(board[row] - board[col]) == abs(row - col):
                 num_collisions += 1
 
     # Calculate the maximum possible number of non-attacking queen pairs
