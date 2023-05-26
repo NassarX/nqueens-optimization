@@ -3,7 +3,8 @@ import os
 
 sys.path.append(os.path.abspath("."))
 from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, \
-    swap_mutation
+    swap_mutation, inversion_mutation, cycle_xo, arithmetic_xo, stochastic_universal_sampling
+
 import argparse
 from datetime import datetime
 from utils import calculate_fitness_score, _create_chessboard
@@ -32,18 +33,23 @@ class NQueensGeneticAlgorithm:
     operators_mapping = {
         'swap_mutation': swap_mutation,
         'random_mutation': random_position_mutation,
+        'inversion_mutation': inversion_mutation,
         'single_cross': single_point_co,
+        'cycle_cross': cycle_xo,
         'pmx': pmx,
+        'arithmetic_cross': arithmetic_xo,
+        'stochastic_universal_sampling': stochastic_universal_sampling,
         'tournament_selection': tournament_selection
     }
+
 
     def __init__(self, population_size: int, dimension: int) -> None:
         # Initial population
         self.population = Population(size=population_size,
-                                     optim="max",
-                                     sol_size=dimension,
-                                     valid_set=range(dimension),
-                                     distinct=True)
+                                    optim="max",
+                                    sol_size=dimension,
+                                    valid_set=range(dimension),
+                                    distinct=True)
 
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
