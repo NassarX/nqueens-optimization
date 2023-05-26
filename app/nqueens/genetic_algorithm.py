@@ -68,7 +68,9 @@ class NQueensGeneticAlgorithm:
             elitism=True
         )
         end_time = datetime.now()
-        self.duration = format(end_time - start_time)
+        duration = end_time - start_time
+        milliseconds = int(duration.total_seconds() * 1000)
+        self.duration = milliseconds
 
     def report(self):
         """ Returns a report of the best individual in the population. """
