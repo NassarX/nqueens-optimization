@@ -30,6 +30,7 @@ class NQueensGeneticAlgorithm:
 
     def __init__(self, population_size: int, dimension: int) -> None:
         # Initial population
+        self.duration = 0
         self.crossover_func = None
         self.mutate_func = None
         self.selection_func = None
@@ -56,6 +57,7 @@ class NQueensGeneticAlgorithm:
         self.crossover_func = OPERATORS_MAPPING[crossover_operator]
 
         # Evolve the population for the given number of generations
+        start_time = datetime.now()
         self.population.evolve(
             gens=generations,
             xo_prob=crossover_probability,
@@ -65,6 +67,8 @@ class NQueensGeneticAlgorithm:
             crossover=self.crossover_func,
             elitism=True
         )
+        end_time = datetime.now()
+        self.duration = format(end_time - start_time)
 
     def report(self):
         """ Returns a report of the best individual in the population. """
@@ -79,9 +83,11 @@ class NQueensGeneticAlgorithm:
         selection_func = self.selection_func.__name__
         mutate_func = self.mutate_func.__name__
         crossover_func = self.crossover_func.__name__
+        duration = self.duration
 
         return {
             "generations": generations,
+            "duration": duration,
             "best_fitness": best_fitness,
             "best_fitness_percentage": best_fitness_percentage,
             "best_representation": best_representation,
@@ -101,6 +107,7 @@ class NQueensGeneticAlgorithm:
         representation += "Dimension: {}\n".format(self.dimension)
         representation += "Population size: {}\n".format(self.population_size)
         representation += "Generations: {}\n".format(self.report()["generations"])
+        representation += "Duration: {}\n".format(self.duration)
         representation += "==========================\n"
         representation += "Best fitness: {}\n".format(self.report()["best_fitness"])
         representation += "Best fitness percentage: {}\n".format(self.report()["best_fitness_percentage"])
@@ -139,7 +146,6 @@ def main():
     args = parser.parse_args()
 
     nQueensGA = None
-    start_time = datetime.now()
     try:
         start_time = datetime.now()
         nQueensGA = NQueensGeneticAlgorithm(population_size=args.population, dimension=args.n_queen)
@@ -154,11 +160,7 @@ def main():
     except KeyboardInterrupt:
         print("\nInterrupted", end="\n")
     finally:
-        end_time = datetime.now()
-        representation = nQueensGA.print_report()
-        representation += "Duration: {}\n".format(end_time - start_time)
-
-        print(representation)
+        print(nQueensGA.print_report())
 
 
 if __name__ == '__main__':
