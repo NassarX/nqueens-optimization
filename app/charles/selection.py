@@ -118,7 +118,7 @@ def stochastic_universal_sampling(population, num_parents=None) -> [Individual]:
     Returns:
         list: List of selected parents.
     """
-    # common default value for num_parents half the population size allowing
+    # common default value for num_parents half the population size allowing diverse parents while keeping enough individuals
     if num_parents is None:
         num_parents = len(population.individuals) // 2
 
