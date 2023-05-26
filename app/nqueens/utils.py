@@ -1,8 +1,8 @@
 import sys
 import os
-sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath("."))
 from colorama import Fore, Back, Style
-from app.charles import Individual, tournament_selection, swap_mutation, pmx
+from app.charles import Individual
 
 
 def calculate_fitness_score(self):
@@ -92,9 +92,9 @@ GENERATIONS_CONST = 100
 N_QUEEN_CONST = 8
 
 # CHANGE
-SELECT_CONST = tournament_selection
-MUTATE_CONST = swap_mutation
-CROSSOVER_CONST = pmx
+SELECT_CONST = "tournament_selection"
+MUTATE_CONST = "swap_mutation"
+CROSSOVER_CONST = "pmx"
 
 CELL = '   '
 QUEEN = '♛'

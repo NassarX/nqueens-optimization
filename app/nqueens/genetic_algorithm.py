@@ -1,6 +1,7 @@
 import sys
 import os
-sys.path.append(os.path.abspath(".."))
+
+sys.path.append(os.path.abspath("."))
 from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, \
     swap_mutation
 import argparse
@@ -27,45 +28,40 @@ class NQueensGeneticAlgorithm:
     best_fitness: int = 0
     num_gens: int = 0
 
-    def __init__(self, population_size: int, dimension: int) -> None:
-        # Initial population
-        self.population = Population(size=population_size,
-                                    optim="max",
-                                    sol_size=dimension,
-                                    valid_set=range(dimension),
-                                    distinct=True)
-
-        # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
-        self.best_fitness = dimension * (dimension - 1) // 2
-    
-    # CHANGE
-    function_map = {
+    # mapping for selecting the function to be used for selection, crossover and mutation
+    operators_mapping = {
         'swap_mutation': swap_mutation,
         'random_mutation': random_position_mutation,
         'single_cross': single_point_co,
         'pmx': pmx,
         'tournament_selection': tournament_selection
-                    }
-    
+    }
+
+    def __init__(self, population_size: int, dimension: int) -> None:
+        # Initial population
+        self.population = Population(size=population_size,
+                                     optim="max",
+                                     sol_size=dimension,
+                                     valid_set=range(dimension),
+                                     distinct=True)
+
+        # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
+        self.best_fitness = dimension * (dimension - 1) // 2
 
     def run(self, generations: int, xo_prob: float, mutation_prob: float, select: str, mutate: str, crossover: str):
         self.num_gens = generations
-
-        mutate_funct = function_map[mutate]
-        crossover_funct = function_map[crossover]
-        selection_funct = function_map[select]
-
+        selection_func = self.operators_mapping[select]
+        mutate_func = self.operators_mapping[mutate]
+        crossover_func = self.operators_mapping[crossover]
 
         # Evolve the population for the given number of generations
         self.population.evolve(
             gens=generations,
             xo_prob=xo_prob,
             mut_prob=mutation_prob,
-            # CHANGE
-            select=selection_funct,
-            mutate=mutate_funct,
-            crossover=crossover_funct,
-            ###
+            select=selection_func,
+            mutate=mutate_func,
+            crossover=crossover_func,
             elitism=True
         )
 
@@ -103,8 +99,6 @@ def main():
                         help='Mutation probability')
     parser.add_argument('-g', '--generations', type=int, default=GENERATIONS_CONST,
                         help='Number of generations')
-    
-    # CHANGE
     parser.add_argument('-s', '--selection', type=str, default=SELECT_CONST,
                         help='Selection Algorithm')
     parser.add_argument('-xo', '--crossover', type=str, default=CROSSOVER_CONST,
@@ -122,11 +116,9 @@ def main():
             generations=args.generations,
             xo_prob=args.crossover_probability,
             mutation_prob=args.mutation_probability,
-
-            #CHANGE
-            select = args.selection,
-            mutate= args.mutation, 
-            crossover= args.crossover
+            select=args.selection,
+            mutate=args.mutation,
+            crossover=args.crossover
         )
     except KeyboardInterrupt:
         print("\nInterrupted", end="\n")

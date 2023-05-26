@@ -30,7 +30,7 @@ Let's proceed with the implementation.
 import sys
 import os
 
-sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath("."))
 import argparse
 from datetime import datetime
 from utils import N_QUEEN_CONST, _create_chessboard
