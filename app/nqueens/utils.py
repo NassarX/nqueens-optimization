@@ -1,8 +1,10 @@
 import sys
 import os
+
 sys.path.append(os.path.abspath("."))
 from colorama import Fore, Back, Style
-from app.charles import Individual
+from app.charles import Individual, tournament_selection, single_point_co, random_position_mutation, pmx, \
+    swap_mutation, inversion_mutation, cycle_xo, arithmetic_xo, stochastic_universal_sampling
 
 
 def calculate_fitness_score(self):
@@ -73,17 +75,18 @@ def get_neighbours(self):
     return neighbours
 
 
-def state_to_string(state, n):
-    # ex. [1, 3, 0, 2]
-    # output: [".Q..","...Q","Q...","..Q."]
-    ret = []
-    print("state: {}".format(state))
-
-    for i in state:
-        string = '.' * i + 'Q' + '.' * (n - i - 1)
-        ret.append(string)
-    return ret
-
+# mapping for selecting the function to be used for selection, crossover and mutation
+OPERATORS_MAPPING = {
+    'swap_mutation': swap_mutation,
+    'random_mutation': random_position_mutation,
+    'inversion_mutation': inversion_mutation,
+    'single_cross': single_point_co,
+    'cycle_cross': cycle_xo,
+    'pmx': pmx,
+    'arithmetic_cross': arithmetic_xo,
+    'stochastic_universal_sampling': stochastic_universal_sampling,
+    'tournament_selection': tournament_selection
+}
 
 MUTATION_PROBABILITY_CONST = 0.1
 CROSSOVER_PROBABILITY_CONST = 0.1

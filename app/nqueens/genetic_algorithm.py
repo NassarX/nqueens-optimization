@@ -2,13 +2,12 @@ import sys
 import os
 
 sys.path.append(os.path.abspath("."))
-from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, \
-    swap_mutation, inversion_mutation, cycle_xo, arithmetic_xo, stochastic_universal_sampling
-
+from app.charles import Individual, Population
 import argparse
 from datetime import datetime
-from utils import calculate_fitness_score, _create_chessboard
-from utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOVER_PROBABILITY_CONST, INITIAL_POPULATION_CONST, \
+from app.nqueens.utils import calculate_fitness_score, _create_chessboard, OPERATORS_MAPPING
+from app.nqueens.utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOVER_PROBABILITY_CONST, \
+    INITIAL_POPULATION_CONST, \
     GENERATIONS_CONST, SELECT_CONST, MUTATE_CONST, CROSSOVER_CONST
 
 # Add the fitness function to the Individual class as a method using Monkey Patching (Duck Typing) technique.
@@ -29,45 +28,41 @@ class NQueensGeneticAlgorithm:
     best_fitness: int = 0
     num_gens: int = 0
 
-    # mapping for selecting the function to be used for selection, crossover and mutation
-    operators_mapping = {
-        'swap_mutation': swap_mutation,
-        'random_mutation': random_position_mutation,
-        'inversion_mutation': inversion_mutation,
-        'single_cross': single_point_co,
-        'cycle_cross': cycle_xo,
-        'pmx': pmx,
-        'arithmetic_cross': arithmetic_xo,
-        'stochastic_universal_sampling': stochastic_universal_sampling,
-        'tournament_selection': tournament_selection
-    }
-
-
     def __init__(self, population_size: int, dimension: int) -> None:
         # Initial population
+        self.crossover_func = None
+        self.mutate_func = None
+        self.selection_func = None
         self.population = Population(size=population_size,
-                                    optim="max",
-                                    sol_size=dimension,
-                                    valid_set=range(dimension),
-                                    distinct=True)
+                                     optim="max",
+                                     sol_size=dimension,
+                                     valid_set=range(dimension),
+                                     distinct=True)
 
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
+        self.population_size = population_size
 
-    def run(self, generations: int, xo_prob: float, mutation_prob: float, select: str, mutate: str, crossover: str):
+    def run(self,
+            generations: int,
+            crossover_probability: float,
+            mutation_probability: float,
+            mutation_operator: str,
+            selection_operator: str,
+            crossover_operator: str):
         self.num_gens = generations
-        selection_func = self.operators_mapping[select]
-        mutate_func = self.operators_mapping[mutate]
-        crossover_func = self.operators_mapping[crossover]
+        self.selection_func = OPERATORS_MAPPING[selection_operator]
+        self.mutate_func = OPERATORS_MAPPING[mutation_operator]
+        self.crossover_func = OPERATORS_MAPPING[crossover_operator]
 
         # Evolve the population for the given number of generations
         self.population.evolve(
             gens=generations,
-            xo_prob=xo_prob,
-            mut_prob=mutation_prob,
-            select=selection_func,
-            mutate=mutate_func,
-            crossover=crossover_func,
+            xo_prob=crossover_probability,
+            mut_prob=mutation_probability,
+            select=self.selection_func,
+            mutate=self.mutate_func,
+            crossover=self.crossover_func,
             elitism=True
         )
 
@@ -81,6 +76,9 @@ class NQueensGeneticAlgorithm:
         worst_fitness = self.population.worst_indv.fitness
         worst_representation = self.population.worst_indv.representation
         mean_fitness = self.population.mean_fitness
+        selection_func = self.selection_func.__name__
+        mutate_func = self.mutate_func.__name__
+        crossover_func = self.crossover_func.__name__
 
         return {
             "generations": generations,
@@ -89,8 +87,35 @@ class NQueensGeneticAlgorithm:
             "best_representation": best_representation,
             "worst_fitness": worst_fitness,
             "worst_representation": worst_representation,
-            "mean_fitness": mean_fitness
+            "mean_fitness": mean_fitness,
+            "selection_operator": selection_func,
+            "mutate_operator": mutate_func,
+            "crossover_operator": crossover_func
         }
+
+    def print_report(self):
+        """ Prints a report of the best individual in the population. """
+        representation = ""
+        representation += "N-Queens Genetic Algorithm\n"
+        representation += "==========================\n"
+        representation += "Dimension: {}\n".format(self.dimension)
+        representation += "Population size: {}\n".format(self.population_size)
+        representation += "Generations: {}\n".format(self.report()["generations"])
+        representation += "==========================\n"
+        representation += "Best fitness: {}\n".format(self.report()["best_fitness"])
+        representation += "Best fitness percentage: {}\n".format(self.report()["best_fitness_percentage"])
+        representation += "Best representation: {}\n".format(self.report()["best_representation"])
+        representation += "Worst fitness: {}\n".format(self.report()["worst_fitness"])
+        representation += "Worst representation: {}\n".format(self.report()["worst_representation"])
+        representation += "Mean fitness: {}\n".format(self.report()["mean_fitness"])
+        representation += "==========================\n"
+        representation += "Selection operator: {}\n".format(self.report()["selection_operator"])
+        representation += "Mutate operator: {}\n".format(self.report()["mutate_operator"])
+        representation += "Crossover operator: {}\n".format(self.report()["crossover_operator"])
+        representation += _create_chessboard(self.dimension, self.report()["best_representation"])
+        representation += "\n"
+
+        return representation
 
 
 def main():
@@ -120,31 +145,18 @@ def main():
         nQueensGA = NQueensGeneticAlgorithm(population_size=args.population, dimension=args.n_queen)
         nQueensGA.run(
             generations=args.generations,
-            xo_prob=args.crossover_probability,
-            mutation_prob=args.mutation_probability,
-            select=args.selection,
-            mutate=args.mutation,
-            crossover=args.crossover
+            crossover_probability=args.crossover_probability,
+            mutation_probability=args.mutation_probability,
+            selection_operator=args.selection,
+            mutation_operator=args.mutation,
+            crossover_operator=args.crossover
         )
     except KeyboardInterrupt:
         print("\nInterrupted", end="\n")
     finally:
         end_time = datetime.now()
-        representation = ""
-        representation += "N-Queens Genetic Algorithm\n"
-        representation += "==========================\n"
-        representation += "Dimension: {}\n".format(nQueensGA.dimension)
-        representation += "Population size: {}\n".format(args.population)
-        representation += "Generations: {}\n".format(nQueensGA.report()["generations"])
+        representation = nQueensGA.print_report()
         representation += "Duration: {}\n".format(end_time - start_time)
-        representation += "Best fitness: {}\n".format(nQueensGA.report()["best_fitness"])
-        representation += "Best fitness percentage: {}\n".format(nQueensGA.report()["best_fitness_percentage"])
-        representation += "Best representation: {}\n".format(nQueensGA.report()["best_representation"])
-        representation += "Worst fitness: {}\n".format(nQueensGA.report()["worst_fitness"])
-        representation += "Worst representation: {}\n".format(nQueensGA.report()["worst_representation"])
-        representation += "Mean fitness: {}\n".format(nQueensGA.report()["mean_fitness"])
-        representation += "\n"
-        representation += _create_chessboard(args.n_queen, nQueensGA.report()["best_representation"])
 
         print(representation)
 
