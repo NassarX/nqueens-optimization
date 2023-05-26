@@ -76,42 +76,62 @@ def cycle_xo(p1, p2):
 
 
 def pmx(p1, p2):
-    """Implementation of partially matched/mapped crossover.
+    """Executes a partially matched crossover (PMX) on the input individuals.
+    The two individuals are modified in place. This crossover expects
+    :term:`sequence` individuals of indices, the result for any other type of
+    individuals is unpredictable.
 
     Args:
-        p1 (Individual): First parent for crossover.
-        p2 (Individual): Second parent for crossover.
+        p1 (Individual): The first individual participating in the crossover.
+        p2 (Individual): The second individual participating in the crossover.
 
     Returns:
-        Individuals: Two offspring, resulting from the crossover.
+    :returns: A tuple of two individuals.
+
+    Moreover, this crossover generates two children by matching
+    pairs of values in a certain range of the two parents and swapping the values
+    of those indexes.
     """
-    xo_points = sample(range(len(p1)), 2)
-    # xo_points = [3,6]
-    xo_points.sort()
+    ind1 = p1.representation.copy()
+    ind2 = p2.representation.copy()
 
-    def pmx_offspring(x, y):
-        o = [None] * len(x)
-        # offspring2
-        o[xo_points[0]:xo_points[1]] = x[xo_points[0]:xo_points[1]]
-        z = set(y[xo_points[0]:xo_points[1]]) - set(x[xo_points[0]:xo_points[1]])
+    size = min(len(ind1), len(ind2))
+    offspring1, offspring2 = [0] * size, [0] * size
 
-        # numbers that exist in the segment
-        for i in z:
-            temp = i
-            index = y.index(x[y.index(temp)])
-            while o[index] is not None:
-                temp = index
-                index = y.index(x[temp])
-            o[index] = i
+    # Initialize the position of each indices in the individuals
+    for i in range(size):
+        offspring1[ind1[i]] = i
+        offspring2[ind2[i]] = i
 
-        # numbers that doesn't exist in the segment
-        while None in o:
-            index = o.index(None)
-            o[index] = y[index]
-        return o
+    # Choose crossover points
+    cxpoint1 = randint(0, size)
+    cxpoint2 = randint(0, size - 1)
 
-    offspring1, offspring2 = pmx_offspring(p1, p2), pmx_offspring(p2, p1)
-    return offspring1, offspring2
+    # Ensure that crossover points are different
+    if cxpoint2 >= cxpoint1:
+        cxpoint2 += 1
+    else:  # Swap the two cx points
+        cxpoint1, cxpoint2 = cxpoint2, cxpoint1
+
+    # Apply crossover between cx points
+    for i in range(cxpoint1, cxpoint2):
+        # Keep track of the selected values
+        temp1 = ind1[i]
+        temp2 = ind2[i]
+
+        # Swap the matched value
+        ind1[i], ind1[offspring1[temp2]] = temp2, temp1
+        ind2[i], ind2[offspring2[temp1]] = temp1, temp2
+
+        # Position bookkeeping
+        offspring1[temp1], offspring1[temp2] = offspring1[temp2], offspring1[temp1]
+        offspring2[temp1], offspring2[temp2] = offspring2[temp2], offspring2[temp1]
+
+    # Create new individual from the offspring
+    ind1 = Individual(representation=ind1)
+    ind2 = Individual(representation=ind2)
+
+    return ind1, ind2
 
 
 def arithmetic_xo(p1, p2):
