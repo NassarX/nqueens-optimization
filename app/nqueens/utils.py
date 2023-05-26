@@ -1,5 +1,8 @@
-from colorama import Fore, Back, Style
+import sys
+import os
+sys.path.append(os.path.abspath(".."))
 
+from colorama import Fore, Back, Style
 from app.charles import Individual
 
 

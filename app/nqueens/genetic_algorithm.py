@@ -1,6 +1,10 @@
+import sys
+import os
+sys.path.append(os.path.abspath(".."))
+from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, \
+    swap_mutation
 import argparse
 from datetime import datetime
-from app.charles import Individual, Population, tournament_selection, single_point_co, random_position_mutation, pmx, swap_mutation
 from utils import calculate_fitness_score, _create_chessboard
 from utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOVER_PROBABILITY_CONST, INITIAL_POPULATION_CONST, \
     GENERATIONS_CONST

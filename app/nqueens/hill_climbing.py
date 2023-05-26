@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(".."))
 import argparse
 from datetime import datetime
 from app.charles import Individual, Population
