@@ -7,7 +7,7 @@ import argparse
 from datetime import datetime
 from utils import calculate_fitness_score, _create_chessboard
 from utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOVER_PROBABILITY_CONST, INITIAL_POPULATION_CONST, \
-    GENERATIONS_CONST
+    GENERATIONS_CONST, SELECT_CONST, MUTATE_CONST, CROSSOVER_CONST
 
 # Add the fitness function to the Individual class as a method using Monkey Patching (Duck Typing) technique.
 Individual.get_fitness = calculate_fitness_score
@@ -30,25 +30,42 @@ class NQueensGeneticAlgorithm:
     def __init__(self, population_size: int, dimension: int) -> None:
         # Initial population
         self.population = Population(size=population_size,
-                                     optim="max",
-                                     sol_size=dimension,
-                                     valid_set=range(dimension),
-                                     distinct=True)
+                                    optim="max",
+                                    sol_size=dimension,
+                                    valid_set=range(dimension),
+                                    distinct=True)
 
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
+    
+    # CHANGE
+    function_map = {
+        'swap_mutation': swap_mutation,
+        'random_mutation': random_position_mutation,
+        'single_cross': single_point_co,
+        'pmx': pmx,
+        'tournament_selection': tournament_selection
+                    }
+    
 
-    def run(self, generations: int, xo_prob: float, mutation_prob: float):
+    def run(self, generations: int, xo_prob: float, mutation_prob: float, select: str, mutate: str, crossover: str):
         self.num_gens = generations
+
+        mutate_funct = function_map[mutate]
+        crossover_funct = function_map[crossover]
+        selection_funct = function_map[select]
+
 
         # Evolve the population for the given number of generations
         self.population.evolve(
             gens=generations,
             xo_prob=xo_prob,
             mut_prob=mutation_prob,
-            select=tournament_selection,
-            mutate=swap_mutation,
-            crossover=pmx,
+            # CHANGE
+            select=selection_funct,
+            mutate=mutate_funct,
+            crossover=crossover_funct,
+            ###
             elitism=True
         )
 
@@ -86,6 +103,14 @@ def main():
                         help='Mutation probability')
     parser.add_argument('-g', '--generations', type=int, default=GENERATIONS_CONST,
                         help='Number of generations')
+    
+    # CHANGE
+    parser.add_argument('-s', '--selection', type=str, default=SELECT_CONST,
+                        help='Selection Algorithm')
+    parser.add_argument('-xo', '--crossover', type=str, default=CROSSOVER_CONST,
+                        help='Crossover Algorithm')
+    parser.add_argument('-mut', '--mutation', type=str, default=MUTATE_CONST,
+                        help='Mutation Algorithm')
     args = parser.parse_args()
 
     nQueensGA = None
@@ -96,7 +121,12 @@ def main():
         nQueensGA.run(
             generations=args.generations,
             xo_prob=args.crossover_probability,
-            mutation_prob=args.mutation_probability
+            mutation_prob=args.mutation_probability,
+
+            #CHANGE
+            select = args.selection,
+            mutate= args.mutation, 
+            crossover= args.crossover
         )
     except KeyboardInterrupt:
         print("\nInterrupted", end="\n")

@@ -1,9 +1,8 @@
 import sys
 import os
 sys.path.append(os.path.abspath(".."))
-
 from colorama import Fore, Back, Style
-from app.charles import Individual
+from app.charles import Individual, tournament_selection, swap_mutation, pmx
 
 
 def calculate_fitness_score(self):
@@ -91,6 +90,12 @@ CROSSOVER_PROBABILITY_CONST = 0.1
 INITIAL_POPULATION_CONST = 100
 GENERATIONS_CONST = 100
 N_QUEEN_CONST = 8
+
+# CHANGE
+SELECT_CONST = tournament_selection
+MUTATE_CONST = swap_mutation
+CROSSOVER_CONST = pmx
+
 CELL = '   '
 QUEEN = '♛'
 
