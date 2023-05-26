@@ -104,7 +104,7 @@ def rank_selection(population) -> Individual:
             return individual
 
 
-def stochastic_universal_sampling(population, num_parents) -> [Individual]:
+def stochastic_universal_sampling(population, num_parents=None) -> [Individual]:
     """Stochastic Universal Sampling (SUS) implementation.
 
      Stochastic Universal Sampling is a technique that selects parents
@@ -118,6 +118,10 @@ def stochastic_universal_sampling(population, num_parents) -> [Individual]:
     Returns:
         list: List of selected parents.
     """
+    # common default value for num_parents half the population size allowing
+    if num_parents is None:
+        num_parents = len(population.individuals) // 2
+
     sorted_population = sorted(population.individuals, key=attrgetter("fitness"), reverse=population.optim == "max")
     total_fitness = sum(individual.fitness for individual in sorted_population)
     fitness_proportions = [individual.fitness / total_fitness for individual in sorted_population]
