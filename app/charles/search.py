@@ -50,6 +50,7 @@ def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):
         L (int, optional): Internal loop parameter. Defaults to 20.
         c (int, optional): Temperature parameter. Defaults to 10.
         alpha (float, optional): Alpha to decrease the temperature. Defaults to 0.95.
+        threshold (float, optional): Threshold to stop the algorithm. Defaults to 0.05.
 
     Returns:
         Individual: an Individual object - the best found by SA.
@@ -66,7 +67,7 @@ def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):
             # 3.1.2. if better, accept
             if neighbour.fitness >= position.fitness:
                 position = neighbour
-                print(f"Found better solution: {position}")
+                print(f"Found better solution: {position.representation}, Fitness: {position.fitness}")
                 if position.fitness > elite.fitness:
                     elite = position
             # else, accept with probability
@@ -75,11 +76,10 @@ def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):
                 pc = exp(-abs(neighbour.fitness - position.fitness) / c)
                 if p < pc:
                     position = neighbour
-                    print(f"Accepted a worse solution: {position}")
+                    print(f"Accepted a worse solution: {position.representation}, Fitness: {position.fitness}")
 
         # 3.2 decrement c
         c = c * alpha
     # 4. return solution
-    print(f"Elite is {elite}")
-    print(f"Simulated Annealing found {position}")
+    print(f"Elite is {elite.representation}, Fitness: {elite.fitness}")
     return elite
