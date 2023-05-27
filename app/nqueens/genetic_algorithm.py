@@ -34,11 +34,12 @@ class NQueensGeneticAlgorithm:
 
         # Override Individual class get_fitness using Monkey Patching (Duck Typing) technique.
         Individual.get_fitness = calculate_fitness_score
-        self.population = Population(size=population_size,
-                                     optim="max",
-                                     sol_size=dimension,
-                                     valid_set=range(dimension),
-                                     distinct=True)
+        self.population = Population(
+                                    size=population_size,
+                                    optim="max",
+                                    sol_size=dimension,
+                                    valid_set=range(dimension),
+                                    distinct=True)
 
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
