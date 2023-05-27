@@ -33,7 +33,7 @@ import os
 sys.path.append(os.path.abspath("."))
 import argparse
 from datetime import datetime
-from utils import N_QUEEN_CONST, _create_chessboard
+from app.nqueens.utils import N_QUEEN_CONST, _create_chessboard
 
 
 def get_candidates(state, size):
