@@ -5,7 +5,7 @@ import argparse
 from datetime import datetime
 from app.charles import Individual, Population
 from app.charles import hill_climb
-from utils import calculate_fitness_score, get_neighbours, N_QUEEN_CONST, _create_chessboard
+from app.nqueens.utils import calculate_fitness_score, get_neighbours, N_QUEEN_CONST, _create_chessboard
 
 
 class NQueensHillClimbing:
