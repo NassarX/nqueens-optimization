@@ -32,8 +32,7 @@ class NQueensGeneticAlgorithm:
         self.mutate_func = None
         self.selection_func = None
 
-        # Add the fitness function to the Individual class as a method
-        # using Monkey Patching (Duck Typing) technique.
+        # Override Individual class get_fitness using Monkey Patching (Duck Typing) technique.
         Individual.get_fitness = calculate_fitness_score
         self.population = Population(size=population_size,
                                      optim="max",
@@ -150,7 +149,6 @@ def main():
 
     nQueensGA = None
     try:
-        start_time = datetime.now()
         nQueensGA = NQueensGeneticAlgorithm(population_size=args.population, dimension=args.n_queen)
         nQueensGA.run(
             generations=args.generations,

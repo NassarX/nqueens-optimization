@@ -2,11 +2,12 @@ from random import choice, uniform
 from math import exp
 
 
-def hill_climb(search_space):
+def hill_climb(search_space, max_iter=1000):
     """Hill climbs a given search space.
 
     Args:
         search_space (Population): A Population of solutions
+        max_iter (int): Maximum number of iterations to run the algorithm.
 
     Returns:
         Individual: Local optimal Individual found in the search.
@@ -17,10 +18,12 @@ def hill_climb(search_space):
 
     # current solution is i-start
     position = start
+    consecutive_no_improvement = 0  # Counter for consecutive iterations without improvement
+
     print(f"Initial position: {position.representation}, fitness: {position.fitness}")
 
     # Repeat until termination condition is met
-    while True:
+    while consecutive_no_improvement < max_iter:
         # Generate neighbors
         neighbors = position.get_neighbours()
 
@@ -31,11 +34,12 @@ def hill_climb(search_space):
         if best_neighbor.fitness > position.fitness:
             print(f"Found better solution: {best_neighbor.representation}, Fitness: {best_neighbor.fitness}")
             position = best_neighbor
-        elif best_neighbor.fitness == position.fitness:
-            position = best_neighbor
+            consecutive_no_improvement = 0  # Reset the counter
         else:
-            print(f"Hill Climbing returned: {position.representation}, Fitness: {position.fitness}")
-            return position
+            consecutive_no_improvement += 1  # Increment the counter
+
+    print(f"Hill Climbing returned: {position.representation}, Fitness: {position.fitness}")
+    return position
 
 
 def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):

@@ -7,10 +7,6 @@ from app.charles import Individual, Population
 from app.charles import hill_climb
 from utils import calculate_fitness_score, get_neighbours, N_QUEEN_CONST, _create_chessboard
 
-# Override fitness, neighbours functions in Individual class using Monkey Patching (Duck Typing) technique.
-Individual.get_fitness = calculate_fitness_score
-Individual.get_neighbours = get_neighbours
-
 
 class NQueensHillClimbing:
     """A class to represent the N-Queens Hill Climbing Algorithm.
@@ -29,13 +25,17 @@ class NQueensHillClimbing:
         self.dimension = dimension
         self.best_fitness = self.dimension * (self.dimension - 1) // 2
 
+        # Override Individual class get_fitness, get_neighbours using Monkey Patching (Duck Typing) technique.
+        Individual.get_fitness = calculate_fitness_score
+        Individual.get_neighbours = get_neighbours
+
     def search(self):
         # Initialize the population
         population = Population(size=1, optim="max", sol_size=self.dimension,
                                 valid_set=range(self.dimension), distinct=True)
 
         # Run the hill climbing algorithm
-        self.best_indv = hill_climb(population)
+        self.best_indv = hill_climb(search_space=population, max_iter=100)
 
     def report(self):
         """ Returns a report of the best individual in the population. """
