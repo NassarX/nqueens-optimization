@@ -137,7 +137,7 @@ def main():
         representation += "==========================\n"
         representation += "Dimension: {}\n".format(args.n_queen)
         representation += "Number of solutions: {}\n".format(len(results))
-        representation += "Execution time: {}\n".format(end_time - start_time)
+        representation += "Execution time: {} ms\n".format(int((end_time - start_time).total_seconds() * 1000))
         representation += "\n"
         representation += _create_chessboard(args.n_queen, results[0])
 

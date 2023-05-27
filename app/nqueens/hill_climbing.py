@@ -74,7 +74,7 @@ def main():
         representation += "Best Fitness: {}\n".format(nQueensHC.report()["best_fitness"])
         representation += "Best Fitness Percentage: {}\n".format(nQueensHC.report()["best_fitness_percentage"])
         representation += "Best Representation: {}\n".format(nQueensHC.report()["best_representation"])
-        representation += "Duration: {}\n".format(end_time - start_time)
+        representation += "Execution time: {} ms\n".format(int((end_time - start_time).total_seconds() * 1000))
         representation += "\n"
         representation += _create_chessboard(args.n_queen, nQueensHC.report()["best_representation"])
 
