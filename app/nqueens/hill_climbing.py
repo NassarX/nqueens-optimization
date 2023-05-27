@@ -37,6 +37,20 @@ class NQueensHillClimbing:
         # Run the hill climbing algorithm
         self.best_indv = hill_climb(search_space=population, max_iter=100)
 
+    def run(self):
+        start_time = datetime.now()
+
+        try:
+            self.search()
+        except KeyboardInterrupt:
+            print("\nInterrupted", end="\n")
+
+        end_time = datetime.now()
+        duration = int((end_time - start_time).total_seconds() * 1000)
+        best_fitness = self.report()["best_fitness"]
+        best_fitness_percentage = self.report()["best_fitness_percentage"]
+        best_representation = self.report()["best_representation"]
+
     def report(self):
         """ Returns a report of the best individual in the population. """
         if self.best_indv is None:
