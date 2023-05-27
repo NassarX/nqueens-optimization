@@ -122,13 +122,19 @@ def stochastic_universal_sampling(population, num_parents=None) -> [Individual]:
     if num_parents is None:
         num_parents = len(population.individuals) // 2
 
-    sorted_population = sorted(population.individuals, key=attrgetter("fitness"), reverse=population.optim == "max")
+    #sorted_population = sorted(population.individuals, key=attrgetter("fitness"), reverse=population.optim == "max")
+    sorted_population = sorted(population.individuals, key=lambda individual: individual.fitness, reverse=population.optim == "max")
     total_fitness = sum(individual.fitness for individual in sorted_population)
     fitness_proportions = [individual.fitness / total_fitness for individual in sorted_population]
 
     # Calculate the cumulative probability distribution
-    cumulative_probabilities = [sum(fitness_proportions[:i + 1]) for i in range(len(sorted_population))]
-
+    #cumulative_probabilities = [sum(fitness_proportions[:i + 1]) for i in range(len(sorted_population))]
+    cumulative_probabilities = []
+    cumulative_sum = 0
+    for proportion in fitness_proportions:
+        cumulative_sum += proportion
+        cumulative_probabilities.append(cumulative_sum)
+        
     # Determine the step size for selecting parents
     step_size = total_fitness / num_parents
     start_point = uniform(0, step_size)
