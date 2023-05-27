@@ -86,36 +86,34 @@ building candidates and backtracking when a dead-end or invalid solution is enco
 
 Unlike heuristic methods, backtracking does not use heuristics or approximate techniques to guide the search process. Instead, it exhaustively explores the entire search space by considering all possible combinations, making it more computationally expensive for large problem instances.
 
-**You can find the implementation of the backtracking algorithm here [backtracking.py](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
+**You can find the implementation of the backtracking algorithm here [backtracking](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
 
-Usage:
+- Usage:
 ```shell
 python backtracking.py --n-queen 8
 ```
 
-Output:
-
+- Output:
 ```
 N-Queens Backtracking Algorithm
 ==========================
 Dimension: 8
 Number of solutions: 92
-Execution time: 0:00:00.002758
-
+Execution time: 2 ms
 ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
-╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
 ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
@@ -130,6 +128,49 @@ Heuristic algorithms use practical and approximate techniques to guide the searc
 
 #### Hill Climbing Algorithm
 
+Hill climbing is a simple heuristic algorithm that is used for local search problems. It starts with an initial solution and iteratively makes small changes to it, such that the new solution is better than the previous one. The algorithm terminates when it reaches a local optimum, i.e., a solution that cannot be improved further by making small changes.
+
+**You can find the implementation of the hill climbing algorithm here [hill_climbing](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/hill_climbing.py)**
+
+- Usage:
+```shell
+python hill_climbing.py --n-queen 8
+```
+
+- Output:
+```
+Initial position: [4, 7, 6, 0, 3, 5, 2, 1], fitness: 21
+Found better solution: [4, 7, 0, 0, 3, 5, 2, 1], Fitness: 24
+Found better solution: [4, 4, 0, 0, 3, 5, 2, 1], Fitness: 25
+Found better solution: [6, 4, 0, 0, 3, 5, 2, 1], Fitness: 26
+Found better solution: [6, 4, 7, 0, 3, 5, 2, 1], Fitness: 27
+Hill Climbing returned: [6, 4, 7, 0, 3, 5, 2, 1], Fitness: 27
+N-Queens Hill Climbing Algorithm
+==========================
+Dimension: 8
+Best Fitness: 27
+Best Fitness Percentage: 96.42857142857143
+Best Representation: [6, 4, 7, 0, 3, 5, 2, 1]
+Execution time: 26 ms
+
+╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+```
 
 #### Simulated Annealing Algorithm
 
@@ -139,8 +180,108 @@ Metaheuristic algorithms are high-level strategies that guide the search process
 #### Genetic Algorithms
 Genetic algorithms are a powerful technique for optimization problems that mimic natural selection. 
 
-In this project, we're going to use genetic algorithms to solve the classic 8 Queen Puzzle. The goal is to find a placement of 8 queens on a chessboard such that no two queens are attacking each other. We start with an initial state where some queens may be attacking each other, and use the genetic algorithm to evolve towards the optimal solution. The project includes a Python implementation of the genetic algorithm, as well as visualization tools to help understand the evolution process. Our results show that the genetic algorithm can efficiently solve the 8 Queen Puzzle and find solutions that are optimal or close to optimal.
+In this project, we're going to use genetic algorithms to solve the classic N-Queen Puzzle. The goal is to find a placement of N-queens on a chessboard such that no two queens are attacking each other. We start with an initial state where some queens may be attacking each other, and use the genetic algorithm to evolve towards the optimal solution. The project includes a Python implementation of the genetic algorithm, as well as visualization tools to help understand the evolution process. Our results show that the genetic algorithm can efficiently solve the N-Queen Puzzle and find solutions that are optimal or close to optimal.
 
+**You can find the implementation of the genetic algorithm here [genetic_algorithm](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/genetic_algorithm.py)**
+
+- Available Selection Algorithms:
+
+| NAME                          | SHORTCUT   |
+|-------------------------------|------------|
+| roulette wheel selection      | roulette   |
+| Rank selection                | rank       |
+| Tournament selection          | tournament |
+| Stochastic Universal Sampling | sus        |
+
+- Available Crossover Algorithms:
+
+| NAME                   | SHORTCUT     |
+|------------------------|--------------|
+| Single point crossover | single_point |
+| Cycle crossover        | cycle        |
+| PMX crossover          | pmx          |
+| Arithmetic crossover   | arithmetic   |
+
+- Available Mutation Algorithms:
+
+| NAME                  | SHORTCUT     |
+|-----------------------|--------------|
+| Swap mutation         | swap         |
+| Inversion mutation    | inversion    |
+| Random mutation       | random_reset |
+
+
+- Usage:
+```shell
+  python genetic_algorithm.py --help
+```
+
+```text
+usage: genetic_algorithm.py [-h] [-n N_QUEEN] [-p POPULATION] [-c CROSSOVER_PROBABILITY] [-m MUTATION_PROBABILITY] [-g GENERATIONS] [-s SELECTION] [-xo CROSSOVER] [-mut MUTATION]
+
+Genetic Algorithm
+
+options:
+  -h, --help            show this help message and exit
+  -n N_QUEEN, --n-queen N_QUEEN
+                        Number of queens
+  -p POPULATION, --population POPULATION
+                        Population size
+  -c CROSSOVER_PROBABILITY, --crossover-probability CROSSOVER_PROBABILITY
+                        Crossover probability
+  -m MUTATION_PROBABILITY, --mutation-probability MUTATION_PROBABILITY
+                        Mutation probability
+  -g GENERATIONS, --generations GENERATIONS
+                        Number of generations
+  -s SELECTION, --selection SELECTION
+                        Selection Algorithm
+  -xo CROSSOVER, --crossover CROSSOVER
+                        Crossover Algorithm
+  -mut MUTATION, --mutation MUTATION
+                        Mutation Algorithm
+```
+
+```shell
+  python genetic_algorithm.py --n-queen 8 --population 100 --crossover-probability 0.8 --mutation-probability 0.2 --generations 100 --selection fps --crossover pmx --mutation swap_mutation
+```
+
+```text
+N-Queens Genetic Algorithm
+==========================
+Dimension: 8
+Population size: 100
+Generations: 100
+Duration: 255 ms
+==========================
+Best fitness: 27
+Best fitness percentage: 96.42857142857143
+Best representation: [4, 5, 2, 3, 0, 6, 7, 1]
+Worst fitness: 27
+Worst representation: [4, 5, 2, 3, 0, 6, 7, 1]
+Mean fitness: 27.0
+==========================
+Selection operator: fps
+Mutate operator: swap_mutation
+Crossover operator: pmx
+╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+```
+  
 ##### Fitness Module
 
 ##### Selection Module

@@ -109,7 +109,7 @@ class NQueensGeneticAlgorithm:
         representation += "Dimension: {}\n".format(self.dimension)
         representation += "Population size: {}\n".format(self.population_size)
         representation += "Generations: {}\n".format(self.report()["generations"])
-        representation += "Duration: {}\n".format(self.duration)
+        representation += "Duration: {} ms\n".format(self.duration)
         representation += "==========================\n"
         representation += "Best fitness: {}\n".format(self.report()["best_fitness"])
         representation += "Best fitness percentage: {}\n".format(self.report()["best_fitness_percentage"])
