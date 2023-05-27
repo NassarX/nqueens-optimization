@@ -11,7 +11,6 @@ from app.nqueens.utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOV
     GENERATIONS_CONST, SELECT_CONST, MUTATE_CONST, CROSSOVER_CONST
 
 
-
 class NQueensGeneticAlgorithm:
     """A class to represent the N-Queens Genetic Algorithm.
 
@@ -45,10 +44,6 @@ class NQueensGeneticAlgorithm:
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
         self.population_size = population_size
-
-
-
-        print("Population size: ", population_size)
 
     def run(self,
             generations: int,
