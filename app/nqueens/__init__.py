@@ -1,1 +1,3 @@
 from .genetic_algorithm import NQueensGeneticAlgorithm
+from .backtracking import NQueensBacktracking
+from .hill_climbing import NQueensHillClimbing
