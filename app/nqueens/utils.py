@@ -4,7 +4,8 @@ import os
 sys.path.append(os.path.abspath("."))
 from colorama import Fore, Back, Style
 from app.charles import Individual, tournament_selection, single_point_co, random_position_mutation, pmx, \
-    swap_mutation, inversion_mutation, cycle_xo, arithmetic_xo, stochastic_universal_sampling
+    swap_mutation, inversion_mutation, cycle_xo, arithmetic_xo, stochastic_universal_sampling, fps, \
+    rank_selection
 
 
 def calculate_fitness_score(self):
@@ -84,6 +85,8 @@ OPERATORS_MAPPING = {
     'cycle_cross': cycle_xo,
     'pmx': pmx,
     'arithmetic_cross': arithmetic_xo,
+    'fps': fps,
+    'rank': rank_selection,
     'stochastic_universal_sampling': stochastic_universal_sampling,
     'tournament_selection': tournament_selection
 }
