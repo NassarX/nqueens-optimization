@@ -21,6 +21,7 @@ class NQueensHillClimbing:
     best_fitness: int = 0
 
     def __init__(self, dimension):
+        self.duration = 0
         self.best_indv = None
         self.dimension = dimension
         self.best_fitness = self.dimension * (self.dimension - 1) // 2
@@ -50,6 +51,10 @@ class NQueensHillClimbing:
         best_fitness = self.report()["best_fitness"]
         best_fitness_percentage = self.report()["best_fitness_percentage"]
         best_representation = self.report()["best_representation"]
+        end_time = datetime.now()
+        duration = end_time - start_time
+        milliseconds = int(duration.total_seconds() * 1000)
+        self.duration = milliseconds
 
     def report(self):
         """ Returns a report of the best individual in the population. """
@@ -58,8 +63,10 @@ class NQueensHillClimbing:
 
         best_fitness_percentage = (self.best_indv.fitness * 100) / self.best_fitness
         best_representation = self.best_indv.representation
+        duration = self.duration
 
         return {
+            "duration": duration,
             "best_fitness": self.best_indv.fitness,
             "best_fitness_percentage": best_fitness_percentage,
             "best_representation": best_representation,

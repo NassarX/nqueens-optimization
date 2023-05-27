@@ -20,7 +20,7 @@ def hill_climb(search_space, max_iter=1000):
     position = start
     consecutive_no_improvement = 0  # Counter for consecutive iterations without improvement
 
-    print(f"Initial position: {position.representation}, fitness: {position.fitness}")
+    #print(f"Initial position: {position.representation}, fitness: {position.fitness}")
 
     # Repeat until termination condition is met
     while consecutive_no_improvement < max_iter:
@@ -32,13 +32,13 @@ def hill_climb(search_space, max_iter=1000):
 
         # If the best neighbor is better than the current position, update the position
         if best_neighbor.fitness > position.fitness:
-            print(f"Found better solution: {best_neighbor.representation}, Fitness: {best_neighbor.fitness}")
+            #print(f"Found better solution: {best_neighbor.representation}, Fitness: {best_neighbor.fitness}")
             position = best_neighbor
             consecutive_no_improvement = 0  # Reset the counter
         else:
             consecutive_no_improvement += 1  # Increment the counter
 
-    print(f"Hill Climbing returned: {position.representation}, Fitness: {position.fitness}")
+    #print(f"Hill Climbing returned: {position.representation}, Fitness: {position.fitness}")
     return position
 
 
@@ -67,7 +67,7 @@ def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):
             # 3.1.2. if better, accept
             if neighbour.fitness >= position.fitness:
                 position = neighbour
-                print(f"Found better solution: {position.representation}, Fitness: {position.fitness}")
+                #print(f"Found better solution: {position.representation}, Fitness: {position.fitness}")
                 if position.fitness > elite.fitness:
                     elite = position
             # else, accept with probability
@@ -76,10 +76,10 @@ def sim_annealing(search_space, L=20, c=10, alpha=0.95, threshold=0.05):
                 pc = exp(-abs(neighbour.fitness - position.fitness) / c)
                 if p < pc:
                     position = neighbour
-                    print(f"Accepted a worse solution: {position.representation}, Fitness: {position.fitness}")
+                    #print(f"Accepted a worse solution: {position.representation}, Fitness: {position.fitness}")
 
         # 3.2 decrement c
         c = c * alpha
     # 4. return solution
-    print(f"Elite is {elite.representation}, Fitness: {elite.fitness}")
+    #print(f"Elite is {elite.representation}, Fitness: {elite.fitness}")
     return elite
