@@ -6,3 +6,6 @@ httpx
 jinja2
 python-multipart
 colorama
+webcolors
+pandas
+plotly

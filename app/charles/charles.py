@@ -71,16 +71,22 @@ class Population:
                 parent2.generation = _ + 1
 
                 # Perform crossover with a certain probability
-                offspring1, offspring2 = (crossover(parent1, parent2) if random() < xo_prob else (parent1, parent2))
+                offspring1, offspring2 = (
+                    crossover(parent1.representation, parent2.representation) if random() < xo_prob else (
+                        parent1.representation, parent2.representation))
 
                 # Perform mutation with a certain probability
                 offspring1 = mutate(offspring1) if random() < mut_prob else offspring1
                 offspring2 = mutate(offspring2) if random() < mut_prob else offspring2
 
-                # Add offspring to the new population
-                new_population.append(offspring1)
+                # Set the updated representation of the offspring
+                parent1.representation = offspring1
+                parent2.representation = offspring2
+
+                # Add new individuals to the new population
+                new_population.append(parent1)
                 if len(new_population) < self.size:
-                    new_population.append(offspring2)
+                    new_population.append(parent2)
 
             if elitism:
                 # Replace the worst individual in the new population with the elite individual

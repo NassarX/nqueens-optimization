@@ -10,8 +10,6 @@ from app.nqueens.utils import N_QUEEN_CONST, MUTATION_PROBABILITY_CONST, CROSSOV
     INITIAL_POPULATION_CONST, \
     GENERATIONS_CONST, SELECT_CONST, MUTATE_CONST, CROSSOVER_CONST
 
-# Add the fitness function to the Individual class as a method using Monkey Patching (Duck Typing) technique.
-Individual.get_fitness = calculate_fitness_score
 
 
 class NQueensGeneticAlgorithm:
@@ -34,6 +32,10 @@ class NQueensGeneticAlgorithm:
         self.crossover_func = None
         self.mutate_func = None
         self.selection_func = None
+
+        # Add the fitness function to the Individual class as a method
+        # using Monkey Patching (Duck Typing) technique.
+        Individual.get_fitness = calculate_fitness_score
         self.population = Population(size=population_size,
                                      optim="max",
                                      sol_size=dimension,
@@ -43,6 +45,10 @@ class NQueensGeneticAlgorithm:
         # Calculate the best fitness score (the maximum number of non-attacking queen pairs)
         self.best_fitness = dimension * (dimension - 1) // 2
         self.population_size = population_size
+
+
+
+        print("Population size: ", population_size)
 
     def run(self,
             generations: int,
