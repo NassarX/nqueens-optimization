@@ -93,7 +93,6 @@ Unlike heuristic methods, backtracking does not use heuristics or approximate te
 python backtracking.py --n-queen 8
 ```
 
-- Output:
 ```
 N-Queens Backtracking Algorithm
 ==========================
@@ -137,7 +136,6 @@ Hill climbing is a simple heuristic algorithm that is used for local search prob
 python hill_climbing.py --n-queen 8
 ```
 
-- Output:
 ```
 Initial position: [4, 7, 6, 0, 3, 5, 2, 1], fitness: 21
 Found better solution: [4, 7, 0, 0, 3, 5, 2, 1], Fitness: 24
@@ -174,6 +172,44 @@ Execution time: 26 ms
 
 #### Simulated Annealing Algorithm
 
+Simulated annealing is a heuristic algorithm that is used for global search problems. It is inspired by the process of annealing in metallurgy, where a metal is heated to a high temperature and then slowly cooled to increase its strength. The algorithm starts with an initial solution and iteratively makes small changes to it. If the new solution is better than the previous one, it is always accepted. If the new solution is worse than the previous one, it is accepted with a probability that depends on the difference between the new and the previous solution. The probability decreases as the algorithm progresses, and the temperature parameter is reduced. The algorithm terminates when the temperature reaches a minimum value.
+
+**You can find the implementation of the simulated annealing algorithm here [simulated_annealing](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/simulated_annealing.py)**
+
+- Usage:
+```shell
+python simulated_annealing.py --n-queen 8
+```
+
+```
+N-Queens Simulated Annealing Algorithm
+==========================
+Dimension: 8
+Best Fitness: 28
+Best Fitness Percentage: 100.0
+Best Representation: [4, 6, 1, 3, 7, 0, 2, 5]
+Execution time: 459 ms
+
+╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
+╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+```
+
+
 ### Metaheuristic Methods
 Metaheuristic algorithms are high-level strategies that guide the search process by combining and adapting different heuristics. They are designed to handle complex optimization problems with large search spaces and provide robust and efficient solutions.
 
@@ -209,7 +245,6 @@ In this project, we're going to use genetic algorithms to solve the classic N-Qu
 | Swap mutation         | swap         |
 | Inversion mutation    | inversion    |
 | Random mutation       | random_reset |
-
 
 - Usage:
 ```shell
