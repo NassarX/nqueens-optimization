@@ -124,7 +124,7 @@ an arrangement of elements satisfying certain constraints. It explores the searc
 building candidates and backtracking when a dead-end or invalid solution is encountered.
 Unlike heuristic methods, backtracking does not use heuristics or approximate techniques to guide the search process. Instead, it exhaustively explores the entire search space by considering all possible combinations, making it more computationally expensive for large problem instances.
 
-**You can find the implementation of the backtracking algorithm here [backtracking](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
+**You can find the implementation of the backtracking algorithm [here](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/backtracking.py)**
 
 ```shell
 python backtracking.py --n-queen 8
@@ -166,7 +166,7 @@ Heuristic algorithms use practical and approximate techniques to guide the searc
 
 >Hill climbing is a simple heuristic algorithm that is used for local search problems. It starts with an initial solution and iteratively makes small changes to it, such that the new solution is better than the previous one. The algorithm terminates when it reaches a local optimum, i.e., a solution that cannot be improved further by making small changes.
 
-**You can find the implementation of the hill climbing algorithm here [hill_climbing](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/hill_climbing.py)**
+**You can find the implementation of the hill climbing algorithm [here](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/hill_climbing.py)**
 
 ```shell
 python hill_climbing.py --n-queen 8
@@ -210,7 +210,7 @@ Execution time: 26 ms
 
 >Simulated annealing is a heuristic algorithm that is used for global search problems. It is inspired by the process of annealing in metallurgy, where a metal is heated to a high temperature and then slowly cooled to increase its strength. The algorithm starts with an initial solution and iteratively makes small changes to it. If the new solution is better than the previous one, it is always accepted. If the new solution is worse than the previous one, it is accepted with a probability that depends on the difference between the new and the previous solution. The probability decreases as the algorithm progresses, and the temperature parameter is reduced. The algorithm terminates when the temperature reaches a minimum value.
 
-**You can find the implementation of the simulated annealing algorithm here [simulated_annealing](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/simulated_annealing.py)**
+**You can find the implementation of the simulated annealing algorithm [here](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/simulated_annealing.py)**
 
 ```shell
 python simulated_annealing.py --n-queen 8
@@ -251,7 +251,7 @@ Metaheuristic algorithms are high-level strategies that guide the search process
 >Genetic algorithms are a powerful technique for optimization problems that mimic natural selection. 
 In this project, we're going to use genetic algorithms to solve the classic N-Queen Puzzle. The goal is to find a placement of N-queens on a chessboard such that no two queens are attacking each other. We start with an initial state where some queens may be attacking each other, and use the genetic algorithm to evolve towards the optimal solution. The project includes a Python implementation of the genetic algorithm, as well as visualization tools to help understand the evolution process. Our results show that the genetic algorithm can efficiently solve the N-Queen Puzzle and find solutions that are optimal or close to optimal.
 
-**You can find the implementation of the genetic algorithm here [genetic_algorithm](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/genetic_algorithm.py)**
+**You can find the implementation of the genetic algorithm [here](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/genetic_algorithm.py)**
 
 
 ##### Fitness Function
@@ -262,7 +262,7 @@ In this fitness function, we iterate through each pair of queens on the board an
 each other. We count the number of collisions and subtract it from the maximum possible pairs to calculate the
 fitness score. A higher fitness score indicates a better configuration with fewer queen collisions.
 
-**You can find the implementation of the fitness function here [fitness_function](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/utils.py)**
+**You can find the implementation of the fitness function [here](https://github.com/NassarX/NQueens-Optimization/blob/main/app/nqueens/utils.py)**
   
 ##### Operators
 
@@ -279,7 +279,6 @@ fitness score. A higher fitness score indicates a better configuration with fewe
 | Tournament selection          | tournament |
 | Stochastic Universal Sampling | sus        |
 
-@TODO
 ###### Crossover
 
 >Crossover is the process of combining genetic material from two parents to create new individuals. The parents are selected from the population using the selection process described above. The crossover process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called crossover. The offspring are then used to create new individuals through mutation.
@@ -292,7 +291,7 @@ fitness score. A higher fitness score indicates a better configuration with fewe
 | Cycle crossover        | cycle        |
 | PMX crossover          | pmx          |
 | Arithmetic crossover   | arithmetic   |
-@TODO
+
 ###### Mutation
 
 >Mutation is the process of randomly changing the genetic material of an individual. The individuals are selected from the population using the selection process described above. The mutation process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called mutation. The offspring are then used to create new individuals through crossover.
@@ -345,34 +344,34 @@ N-Queens Genetic Algorithm
 ==========================
 Dimension: 8
 Population size: 100
-Generations: 100
-Duration: 255 ms
+Generations: 1000
+Duration: 1537 ms
 ==========================
-Best fitness: 27
-Best fitness percentage: 96.42857142857143
-Best representation: [4, 5, 2, 3, 0, 6, 7, 1]
-Worst fitness: 27
-Worst representation: [4, 5, 2, 3, 0, 6, 7, 1]
-Mean fitness: 27.0
+Best fitness: 28
+Best fitness percentage: 100.0
+Best representation: [5, 1, 6, 3, 2, 7, 4, 0]
+Worst fitness: 28
+Worst representation: [5, 1, 6, 3, 2, 7, 4, 0]
+Mean fitness: 28.0
 ==========================
 Selection operator: fps
 Mutate operator: swap_mutation
-Crossover operator: pmx
+Crossover operator: cycle_xo
 ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗
-║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
-╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║   ║   ║ ♛ ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
-╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
-╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
+║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║   ║   ║   ║ ♛ ║   ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║   ║ ♛ ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║   ║   ║ ♛ ║   ║   ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
 ║   ║   ║   ║   ║   ║   ║   ║ ♛ ║
 ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
-║   ║ ♛ ║   ║   ║   ║   ║   ║   ║
+║   ║   ║   ║   ║ ♛ ║   ║   ║   ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ♛ ║   ║   ║   ║   ║   ║   ║   ║
 ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝
 ```
