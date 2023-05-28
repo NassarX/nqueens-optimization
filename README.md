@@ -29,6 +29,7 @@ While the examples in documentation focuses on the 8-queens version, you can app
         - [Selection](#selection)
         - [Crossover](#crossover)
         - [Mutation](#mutation)
+      - [Usage](#usage)
 
 
 ## Problem Statement
@@ -267,7 +268,7 @@ fitness score. A higher fitness score indicates a better configuration with fewe
 
 ###### Selection
 
-Selection is the process of selecting individuals from a population for reproduction. The individuals with the highest fitness scores are more likely to be selected for reproduction. The selection process is repeated until the desired number of individuals is selected. The selected individuals are called parents and the process is called parent selection. The parents are then used to create new individuals through crossover and mutation.
+>Selection is the process of selecting individuals from a population for reproduction. The individuals with the highest fitness scores are more likely to be selected for reproduction. The selection process is repeated until the desired number of individuals is selected. The selected individuals are called parents and the process is called parent selection. The parents are then used to create new individuals through crossover and mutation.
 
 - Available Selection Algorithms:
 
@@ -281,7 +282,7 @@ Selection is the process of selecting individuals from a population for reproduc
 @TODO
 ###### Crossover
 
-Crossover is the process of combining genetic material from two parents to create new individuals. The parents are selected from the population using the selection process described above. The crossover process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called crossover. The offspring are then used to create new individuals through mutation.
+>Crossover is the process of combining genetic material from two parents to create new individuals. The parents are selected from the population using the selection process described above. The crossover process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called crossover. The offspring are then used to create new individuals through mutation.
 
 - Available Crossover Algorithms:
 
@@ -294,7 +295,7 @@ Crossover is the process of combining genetic material from two parents to creat
 @TODO
 ###### Mutation
 
-Mutation is the process of randomly changing the genetic material of an individual. The individuals are selected from the population using the selection process described above. The mutation process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called mutation. The offspring are then used to create new individuals through crossover.
+>Mutation is the process of randomly changing the genetic material of an individual. The individuals are selected from the population using the selection process described above. The mutation process is repeated until the desired number of individuals is created. The new individuals are called offspring and the process is called mutation. The offspring are then used to create new individuals through crossover.
 
 - Available Mutation Algorithms:
 
